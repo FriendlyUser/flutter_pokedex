@@ -46,8 +46,8 @@ const RESOURCES = {
 "assets/assets/fonts/PoppinsBold.ttf": "08c20a487911694291bd8c5de41315ad",
 "assets/assets/fonts/PoppinsRegular.ttf": "093ee89be9ede30383f39a899c485a82",
 "assets/NOTICES": "07870ff87b701a59e883e8332e9e922e",
-"index.html": "64163caea3523a6b73eee95a536a4ea5",
-"/": "64163caea3523a6b73eee95a536a4ea5",
+"index.html": "da4e8944baea2df6f39b862a5a4d7de3",
+"/": "da4e8944baea2df6f39b862a5a4d7de3",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "version.json": "0860c149387a12adb67531442b5eb75e"
 };
