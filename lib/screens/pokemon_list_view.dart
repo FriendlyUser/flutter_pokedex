@@ -18,7 +18,7 @@ class _PokemonListViewState extends State<PokemonListView> {
       appBar: AppBar(
         title: Text('Pokemon List View'),
       ),
-      body: SingleChildScrollView(
+      body: SafeArea(
         child: AnimationLimiter(
           child: GridView.count(
             childAspectRatio: 1.0,
