@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import "colors.dart";
-import "utils.dart";
+import "./colors.dart";
+import './size_utils.dart';
 
 class AppDecoration {
   static BoxDecoration get txtFillGray900 => BoxDecoration(

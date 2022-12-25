@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/components/empty_card.dart';
 
+import '../components/pokemon_card.dart';
+
 class PokemonListView extends StatefulWidget {
   @override
   _PokemonListViewState createState() => _PokemonListViewState();
@@ -16,7 +18,7 @@ class _PokemonListViewState extends State<PokemonListView> {
       appBar: AppBar(
         title: Text('Pokemon List View'),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: AnimationLimiter(
           child: GridView.count(
             childAspectRatio: 1.0,
@@ -29,10 +31,10 @@ class _PokemonListViewState extends State<PokemonListView> {
                   columnCount: columnCount,
                   position: index,
                   duration: const Duration(milliseconds: 375),
-                  child: const ScaleAnimation(
+                  child: ScaleAnimation(
                     scale: 0.5,
                     child: FadeInAnimation(
-                      child: EmptyCard(),
+                      child: PokemonCard(pokemonId: "1"),
                     ),
                   ),
                 );

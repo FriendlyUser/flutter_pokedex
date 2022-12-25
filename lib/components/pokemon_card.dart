@@ -8,9 +8,8 @@ import "../theme/app_style.dart";
 
 // ignore: must_be_immutable
 class PokemonCard extends StatelessWidget {
-  PokemonCard(this.pokemonId);
-
-  String pokemonId ;
+  final String pokemonId;
+  PokemonCard({super.key, required this.pokemonId});
 
 
   @override
