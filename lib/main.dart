@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/screens/pokemon_details.dart';
 import 'package:pokedex/screens/pokemon_list_view.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +13,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+     final _router =GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => PokemonListView(),
+          ),
+          GoRoute(
+            path: '/pokemon/:id',
+            builder: (context, state) => PokemonDetails(
+              pokemonId: int.parse(state.params['id']!),
+            ),
+          ),
+        ],
+      );
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -25,7 +41,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: _router,
       // routes later
     );
   }

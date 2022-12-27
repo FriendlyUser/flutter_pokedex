@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import "package:pokedex/components/custom_image_view.dart";
+import "package:pokedex/components/touchable_opacity.dart";
 import "package:pokedex/theme/app_decoration.dart";
 import "package:pokedex/theme/size_utils.dart";
 import 'package:badges/badges.dart';
+import 'package:go_router/go_router.dart';
 
 import "../core/utils/get_data.dart";
 import "../core/utils/image_constant.dart";
@@ -27,7 +29,8 @@ class PokemonCard extends StatelessWidget {
       labels.add(Chip(
         padding: EdgeInsets.all(0),
         backgroundColor: mainColor.color,
-        label: Text(typeName, style: TextStyle(color: secondaryColor.color, fontSize: 12)),
+        label: Text(typeName,
+            style: TextStyle(color: secondaryColor.color, fontSize: 12)),
       ));
     }
     return labels;
@@ -62,75 +65,85 @@ class PokemonCard extends StatelessWidget {
       decoration: mainColor.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder8,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: getVerticalSize(
-              83.00,
-            ),
-            width: getHorizontalSize(
-              160.00,
-            ),
-            margin: getMargin(
-              top: 4,
-              right: 8,
-            ),
-            child: Stack(
-              alignment: Alignment.bottomLeft,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Row(children: [
-                    ...labelsForTypes(pokemon),
-                    Text(
-                      "# " + id.toString(),
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: AppStyle.txtPoppinsRegular8Bluegray200.copyWith(
-                        height: 1.50,
+      child: TouchableOpacity(
+        onTap: () {
+          // navigate to pokemon detail page with pokemon id
+          // go router
+
+          // Navigator.pushNamed(context, "/pokemon/$id");
+          // Navigator.pushNamed(context, "/pokemon/:id");
+          context.go('/pokemon/$id');
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: getVerticalSize(
+                83.00,
+              ),
+              width: getHorizontalSize(
+                160.00,
+              ),
+              margin: getMargin(
+                top: 4,
+                right: 8,
+              ),
+              child: Stack(
+                alignment: Alignment.bottomLeft,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Row(children: [
+                      ...labelsForTypes(pokemon),
+                      Text(
+                        "# " + id.toString(),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: AppStyle.txtPoppinsRegular8Bluegray200.copyWith(
+                          height: 1.50,
+                        ),
                       ),
+                    ]),
+                  ),
+                  CustomImageView(
+                    url: imgSrc,
+                    height: getSize(
+                      imgSize,
                     ),
-                  ]),
-                ),
-                CustomImageView(
-                  url: imgSrc,
-                  height: getSize(
-                    imgSize,
+                    width: getSize(
+                      imgSize,
+                    ),
+                    alignment: Alignment.bottomCenter,
                   ),
-                  width: getSize(
-                    imgSize,
-                  ),
-                  alignment: Alignment.bottomCenter,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: getHorizontalSize(
-              104.00,
-            ),
-            padding: getPadding(
-              left: 30,
-              top: 3,
-              // right: 40,
-              bottom: 3,
-            ),
-            decoration: secondaryColor,
-            child: Text(
-              name.toString(),
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.left,
-              style: AppStyle.txtPoppinsRegular10WhiteA700.copyWith(
-                height: 1.50,
-                // bold
-                fontWeight: FontWeight.w700,
+                ],
               ),
             ),
-          ),
-        ],
+            Container(
+              width: getHorizontalSize(
+                104.00,
+              ),
+              padding: getPadding(
+                left: 30,
+                top: 3,
+                // right: 40,
+                bottom: 3,
+              ),
+              decoration: secondaryColor,
+              child: Text(
+                name.toString(),
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.left,
+                style: AppStyle.txtPoppinsRegular10WhiteA700.copyWith(
+                  height: 1.50,
+                  // bold
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
