@@ -132,12 +132,15 @@ class CustomImageView extends StatelessWidget {
             backgroundColor: Colors.grey.shade100,
           ),
         ),
-        errorWidget: (context, url, error) => Image.asset(
-          placeHolder,
-          height: height,
-          width: width,
-          fit: fit,
-        ),
+        errorWidget: (context, url, error) {
+          print(error);
+            return Image.asset(
+            placeHolder,
+            height: height,
+            width: width,
+            fit: fit,
+          );
+        }
       );
     } else if (imagePath != null && imagePath!.isNotEmpty) {
       return Image.asset(

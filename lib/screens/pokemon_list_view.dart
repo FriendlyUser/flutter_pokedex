@@ -1,6 +1,5 @@
 // simple list view with animation
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:pokedex/components/empty_card.dart';
 
 import '../components/pokemon_card.dart';
@@ -18,31 +17,17 @@ class _PokemonListViewState extends State<PokemonListView> {
       appBar: AppBar(
         title: Text('Pokemon List View'),
       ),
-      body: SafeArea(
-        child: AnimationLimiter(
-          child: GridView.count(
+      body: GridView.count(
             childAspectRatio: 1.0,
             padding: const EdgeInsets.all(8.0),
             crossAxisCount: columnCount,
             children: List.generate(
-              100,
+              1,
               (int index) {
-                return AnimationConfiguration.staggeredGrid(
-                  columnCount: columnCount,
-                  position: index,
-                  duration: const Duration(milliseconds: 375),
-                  child: ScaleAnimation(
-                    scale: 0.5,
-                    child: FadeInAnimation(
-                      child: PokemonCard(pokemonId: "1"),
-                    ),
-                  ),
-                );
+                return PokemonCard(pokemonId: 1);
               },
             ),
-          ),
-        ),
-      ),
+          )
     );
   }
 }
