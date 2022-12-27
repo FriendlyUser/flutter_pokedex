@@ -133,7 +133,6 @@ class CustomImageView extends StatelessWidget {
           ),
         ),
         errorWidget: (context, url, error) {
-          print(error);
             return Image.asset(
             placeHolder,
             height: height,

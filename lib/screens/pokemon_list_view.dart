@@ -63,7 +63,7 @@ class _PokemonListViewState extends State<PokemonListView> {
             return PokemonCard(pokemon);
           }).toList(),
           // padding bottom
-          padding: EdgeInsets.only(bottom: 200),
+          padding: const EdgeInsets.only(bottom: 500),
         ));
   }
 
