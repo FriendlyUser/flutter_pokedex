@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "f7065250f425a626e72d7cb005e12e36",
+  "main.dart.js": "60a897941ef8b3b7ad5664d15bf5c182",
 "canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
 "canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
 "canvaskit/profiling/canvaskit.js": "c21852696bc1cc82e8894d851c01921a",
@@ -14,10 +14,11 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "flutter.js": "1cfe996e845b3a8a33f57607e8b09ee4",
-"assets/AssetManifest.json": "aebf3512f9bd5b92eb81fa4a9e90eca1",
+"assets/AssetManifest.json": "e6ea204f4cee1ba8f0abbdc825c5a5ff",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "57d849d738900cfd590e9adc7e208250",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/fonts/MaterialIcons-Regular.otf": "33f9d76729fc3dd45e72e253962d2282",
+"assets/assets/clean_pokemon.json": "9fe4473cafab7396f1bf634fb622a387",
 "assets/assets/images/img_frame17_5.svg": "4c6414f3e682c8b700369eaf9584740f",
 "assets/assets/images/img_image10.png": "4feaa9f82873c35e7d97a7dbb6e01190",
 "assets/assets/images/img_image13.png": "7674ace1838772e108dc192dac61dc63",
@@ -45,9 +46,9 @@ const RESOURCES = {
 "assets/assets/images/img_arrowleft.svg": "41ea046d002f81db6bb197236115e42b",
 "assets/assets/fonts/PoppinsBold.ttf": "08c20a487911694291bd8c5de41315ad",
 "assets/assets/fonts/PoppinsRegular.ttf": "093ee89be9ede30383f39a899c485a82",
-"assets/NOTICES": "07870ff87b701a59e883e8332e9e922e",
-"index.html": "6d56278898b96e3d6300b933e258de15",
-"/": "6d56278898b96e3d6300b933e258de15",
+"assets/NOTICES": "3d48132a5a20c9512759074686d4f525",
+"index.html": "53a991aa88c720dadffc26db5974b116",
+"/": "53a991aa88c720dadffc26db5974b116",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "version.json": "0860c149387a12adb67531442b5eb75e"
 };
