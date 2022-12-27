@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/components/empty_card.dart';
 
 import '../components/pokemon_card.dart';
+import '../core/utils/get_data.dart';
 
 class PokemonListView extends StatefulWidget {
   @override
@@ -10,92 +11,98 @@ class PokemonListView extends StatefulWidget {
 }
 
 class _PokemonListViewState extends State<PokemonListView> {
+  List dataList = <Pokemon>[];
+  bool isLoading = false;
+  int pageCount = 1;
+  late ScrollController _scrollController;
+
+  // all pokemone list
+  List<Pokemon> allPokemonList = <Pokemon>[];
+  // scroll view right now
+  List<Pokemon> pokemonList = <Pokemon>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    ////LOADING FIRST  DATA
+    _scrollController = ScrollController(initialScrollOffset: 5.0)
+      ..addListener(_scrollListener);
+    readJson().then((resultat) {
+      setState(() => allPokemonList = (resultat));
+      addItemIntoList(1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var columnCount = 3;
+    // if allPokemonList is empty then show empty card
+    if (allPokemonList.isEmpty) {
+      return EmptyCard();
+    }
+    // row count based on media query
+    if (MediaQuery.of(context).size.width < 600) {
+      columnCount = 2;
+    } else if (MediaQuery.of(context).size.width < 900) {
+      columnCount = 3;
+    } else {
+      columnCount = 6;
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pokemon List View'),
-      ),
-      body: GridView.count(
-            childAspectRatio: 1.0,
-            padding: const EdgeInsets.all(8.0),
-            crossAxisCount: columnCount,
-            children: List.generate(
-              1,
-              (int index) {
-                return PokemonCard(pokemonId: 1);
-              },
-            ),
-          )
-    );
+        appBar: AppBar(
+          title: Text('Pokemon List View'),
+        ),
+        body: GridView.count(
+          controller: _scrollController,
+          scrollDirection: Axis.vertical,
+          crossAxisCount: columnCount,
+          mainAxisSpacing: 10.0,
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: pokemonList.map((pokemon) {
+            return PokemonCard(pokemon);
+          }).toList(),
+          // padding bottom
+          padding: EdgeInsets.only(bottom: 200),
+        ));
+  }
+
+  //// ADDING THE SCROLL LISTINER
+  _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {
+        isLoading = true;
+
+        if (isLoading) {
+
+          pageCount = pageCount + 1;
+
+          addItemIntoList(pageCount);
+        }
+      });
+    }
+  }
+
+  ////ADDING DATA INTO ARRAYLIST
+  void addItemIntoList(var pageCount) {
+
+    // if allPokemonList is empty return
+    if (allPokemonList.isEmpty) {
+      return;
+    }
+    // slice the list from get_data.dart file
+    var list = allPokemonList.sublist(0, (10 * pageCount) as int?);
+    setState(() {
+      pokemonList = list;
+      isLoading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
-
-// Path: lib/screens/PokemonListView.dart
-// simple list view with animation
-// import 'package:flutter/material.dart';
-// import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
-// class PokemonListView extends StatefulWidget {
-//   @override
-//   _PokemonListViewState createState() => _PokemonListViewState();
-// }
-
-// class _PokemonListViewState extends State<PokemonListView> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Pokemon List View'),
-//       ),
-//       body: AnimationLimiter(
-//         child: ListView.builder(
-//           itemCount: 100,
-//           itemBuilder: (BuildContext context, int index) {
-//             return AnimationConfiguration.staggeredList(
-//               position: index,
-//               duration: const Duration(milliseconds: 375),
-//               child: SlideAnimation(
-//                 verticalOffset: 50.0,
-//                 child: FadeInAnimation(
-//                   child: ListTile(
-//                     title: Text('Title'),
-//                     subtitle: Text('subtitle'),
-//                   ),
-//                 ),
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// Path: lib/screens/PokemonListView.dart
-// simple list view with animation
-// import 'package:flutter/material.dart';
-// import 'package:flutter_staggered_animations/flutter
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     body: AnimationLimiter(
-//       child: ListView.builder(
-//         itemCount: 100,
-//         itemBuilder: (BuildContext context, int index) {
-//           return AnimationConfiguration.staggeredList(
-//             position: index,
-//             duration: const Duration(milliseconds: 375),
-//             child: SlideAnimation(
-//               verticalOffset: 50.0,
-//               child: FadeInAnimation(
-//                 child: YourListChild(),
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     ),
-//   );
-// }

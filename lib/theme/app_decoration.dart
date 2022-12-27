@@ -6,6 +6,48 @@ class AppDecoration {
   static BoxDecoration get txtFillGray900 => BoxDecoration(
         color: ColorConstant.gray900,
       );
+
+  // outlineGray900
+  static BoxDecoration get outlineGray900 => BoxDecoration(
+        color: ColorConstant.whiteA700,
+        border: Border.all(
+          color: ColorConstant.gray900,
+          width: getHorizontalSize(
+            1.00,
+          ),
+        ),
+      );
+  // outlineBlack500
+  static BoxDecoration get outlineBlack500 => BoxDecoration(
+        color: ColorConstant.whiteA700,
+        border: Border.all(
+          color: ColorConstant.black500,
+          width: getHorizontalSize(
+            1.00,
+          ),
+        ),
+      );
+
+  // outlineBlackBlue 200
+  static BoxDecoration get outlineBlackBlue => BoxDecoration(
+        color: ColorConstant.blueA700,
+        border: Border.all(
+          color: ColorConstant.black900,
+          width: getHorizontalSize(
+            1.00,
+          ),
+        ),
+      );
+
+  static BoxDecoration get outlineRedgray200 => BoxDecoration(
+        color: ColorConstant.whiteA700,
+        border: Border.all(
+          color: ColorConstant.redA200,
+          width: getHorizontalSize(
+            1.00,
+          ),
+        ),
+      );
   static BoxDecoration get outlineDeeppurple500 => BoxDecoration(
         color: ColorConstant.whiteA700,
         border: Border.all(
@@ -144,6 +186,14 @@ class AppDecoration {
   static BoxDecoration get fillPinkA200 => BoxDecoration(
         color: ColorConstant.pinkA200,
       );
+  // fill red
+  static BoxDecoration get fillRedA200 => BoxDecoration(
+    color: ColorConstant.redA200,
+  );
+  // txtFillRedA700
+  static BoxDecoration get txtFillRedA700 => BoxDecoration(
+    color: ColorConstant.redA700,
+  );
   static BoxDecoration get outlineDeeporangeA200 => BoxDecoration(
         color: ColorConstant.whiteA700,
         border: Border.all(
@@ -162,9 +212,69 @@ class AppDecoration {
   static BoxDecoration get fillBlue300 => BoxDecoration(
         color: ColorConstant.blue300,
       );
+
+  // txtFillBlueA700
+  static BoxDecoration get txtFillBlueA700 => BoxDecoration(
+    color: ColorConstant.blueA700,
+  );
   static BoxDecoration get fillGray100 => BoxDecoration(
         color: ColorConstant.gray100,
       );
+
+  // outline purple
+  static BoxDecoration get outlinePurple500 => BoxDecoration(
+    color: ColorConstant.whiteA700,
+    border: Border.all(
+      color: ColorConstant.purple500,
+      width: getHorizontalSize(
+        1.00,
+      ),
+    ),
+  );
+
+  // outline brown
+  static BoxDecoration get outlineBrown500 => BoxDecoration(
+    color: ColorConstant.whiteA700,
+    border: Border.all(
+      color: ColorConstant.brown500,
+      width: getHorizontalSize(
+        1.00,
+      ),
+    ),
+  );
+  // textborwn
+  static BoxDecoration get txtFillBrown500 => BoxDecoration(
+    color: ColorConstant.brown500,
+  );
+  // outlineIndigoA200
+  static BoxDecoration get outlineIndigoA200 => BoxDecoration(
+    color: ColorConstant.whiteA700,
+    border: Border.all(
+      color: ColorConstant.indigoA200,
+      width: getHorizontalSize(
+        1.00,
+      ),
+    ),
+  );
+  // txtFillIndigoA700
+  static BoxDecoration get txtFillIndigoA200 => BoxDecoration(
+    color: ColorConstant.indigoA200,
+  );
+
+  // light brown
+  static BoxDecoration get txtFillBrown300 => BoxDecoration(
+    color: ColorConstant.brown300,
+  );
+  // outline brown
+  static BoxDecoration get outlineBrown300 => BoxDecoration(
+    color: ColorConstant.whiteA700,
+    border: Border.all(
+      color: ColorConstant.brown300,
+      width: getHorizontalSize(
+        1.00,
+      ),
+    ),
+  );
 }
 
 class BorderRadiusStyle {

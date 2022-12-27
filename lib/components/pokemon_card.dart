@@ -1,102 +1,137 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import "package:pokedex/components/custom_image_view.dart";
 import "package:pokedex/theme/app_decoration.dart";
 import "package:pokedex/theme/size_utils.dart";
-import "package:pokedex/core/utils/get_data.dart";
+import 'package:badges/badges.dart';
 
+import "../core/utils/get_data.dart";
 import "../core/utils/image_constant.dart";
+import "../core/utils/type_to_color.dart";
 import "../theme/app_style.dart";
 
 // ignore: must_be_immutable
 class PokemonCard extends StatelessWidget {
-  final int pokemonId;
-  PokemonCard({super.key, required this.pokemonId});
+  PokemonCard(this.pokemon);
+
+  Pokemon pokemon;
+
+  @override
+  List<Widget> labelsForTypes(Pokemon mon) {
+    List<Widget> labels = [];
+    for (var type in mon.pokemonV2Pokemontypes!) {
+      // map type to color
+      var typeName = type.pokemonV2Type!.name ?? "";
+      var colors = getColorsFromType(typeName);
+      var mainColor = colors[0];
+      var secondaryColor = colors[1];
+      labels.add(Chip(
+        padding: EdgeInsets.all(0),
+        backgroundColor: mainColor.color,
+        label: Text(typeName, style: TextStyle(color: secondaryColor.color, fontSize: 12)),
+      ));
+    }
+    return labels;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // get pokemon element from id and use future builder to get data
-    
+    // get name from pokemon or default it to empty string
+    String name = pokemon.name ?? "";
+    // get id from pokemon or default it to 0
+    int id = pokemon.id ?? 0;
+
+    String imgSrc = pokemon.imgSrc ?? "";
+    // scale images and text on desktop
+    int fontSize = 12;
+    double imgSize = 72;
+    if (MediaQuery.of(context).size.width > 900) {
+      fontSize = 24;
+      imgSize = 144;
+    }
+    // get pokemon type
+    String type = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name ?? "";
+    // need to center image and boost text size
+    // and boost font size
+    // image size
+    var colors = getColorsFromType(type);
+    var mainColor = colors[0];
+    var secondaryColor = colors[1];
+
+    // swap based on pokemon type
     return Container(
-      decoration: AppDecoration.outlineBluegray200.copyWith(
+      decoration: mainColor.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder8,
       ),
-      child: FutureBuilder<Pokemon>(
-          future: getPokemonFromId(pokemonId),
-          builder: (BuildContext context, AsyncSnapshot<Pokemon> snapshot) {
-            if( snapshot.connectionState == ConnectionState.waiting){
-              // return loader
-              return  Center(child: Text('Please wait its loading...'));
-            } else {
-                if (snapshot.hasError)
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                else {
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                        height: getVerticalSize(
-                          300.00,
-                        ),
-                        width: getHorizontalSize(
-                          300.00,
-                        ),
-                        margin: getMargin(
-                          top: 4,
-                          right: 8,
-                        ),
-                        child: Stack(
-                          alignment: Alignment.bottomLeft,
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                "#" + "1",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtPoppinsRegular8Bluegray200.copyWith(
-                                  height: 1.50,
-                                ),
-                              ),
-                            ),
-                            CustomImageView(
-                              url: snapshot.data?.imgSrc ?? "",
-                              alignment: Alignment.bottomLeft,
-                              height: 72.0,
-                              width: 72.0,
-                            ),
-                          ],
-                        ),
-                        )
-                      ), 
-                      Expanded(
-                        child:  Container(
-                        width: getHorizontalSize(
-                          104.00,
-                        ),
-                        padding: getPadding(
-                          left: 30,
-                          top: 3,
-                          right: 40,
-                          bottom: 3,
-                        ),
-                        decoration: AppDecoration.txtFillBluegray200,
-                        child: Text(
-                          snapshot.data?.name?.toUpperCase() ?? "",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsRegular10WhiteA700.copyWith(
-                            height: 1.50,
-                          ),
-                        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: getVerticalSize(
+              83.00,
+            ),
+            width: getHorizontalSize(
+              160.00,
+            ),
+            margin: getMargin(
+              top: 4,
+              right: 8,
+            ),
+            child: Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Row(children: [
+                    ...labelsForTypes(pokemon),
+                    Text(
+                      "# " + id.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: AppStyle.txtPoppinsRegular8Bluegray200.copyWith(
+                        height: 1.50,
                       ),
-                                        ),
-                    ],
-                  );  // snapshot.data  :- get your object which is pass from your downloadData() function
-                }
-            }
-          }
-        )
-      );
+                    ),
+                  ]),
+                ),
+                CustomImageView(
+                  url: imgSrc,
+                  height: getSize(
+                    imgSize,
+                  ),
+                  width: getSize(
+                    imgSize,
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: getHorizontalSize(
+              104.00,
+            ),
+            padding: getPadding(
+              left: 30,
+              top: 3,
+              // right: 40,
+              bottom: 3,
+            ),
+            decoration: secondaryColor,
+            child: Text(
+              name.toString(),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: AppStyle.txtPoppinsRegular10WhiteA700.copyWith(
+                height: 1.50,
+                // bold
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
