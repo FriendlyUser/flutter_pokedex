@@ -92,8 +92,13 @@ class _PokemonListViewState extends State<PokemonListView> {
     if (allPokemonList.isEmpty) {
       return;
     }
+    var numElements = 10;
+    // add more for windows platform
+    if (MediaQuery.of(context).size.width > 900) {
+      numElements = 30;
+    }
     // slice the list from get_data.dart file
-    var list = allPokemonList.sublist(0, (10 * pageCount) as int?);
+    var list = allPokemonList.sublist(0, (numElements * pageCount) as int?);
     setState(() {
       pokemonList = list;
       isLoading = false;
