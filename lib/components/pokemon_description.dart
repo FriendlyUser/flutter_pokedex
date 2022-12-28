@@ -14,21 +14,21 @@ class PokemonDescription extends StatelessWidget {
     var pokemonDescription = description ?? " ";
     // text 100% width, word wrap
     return Row(
-        // space evenly
-        children: [
-          Expanded(
-            child: Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  pokemonDescription,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                )),
-          ),
-        ],
+      // space evenly
+      children: [
+        Expanded(
+          child: Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                pokemonDescription,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              )),
+        ),
+      ],
     );
   }
 }
