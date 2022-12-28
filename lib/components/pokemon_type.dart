@@ -1,28 +1,40 @@
 // simple widget to display a pokemon type color changes based on type
 import 'package:flutter/widgets.dart';
 
+import '../core/utils/size_utils.dart';
 import '../theme/app_decoration.dart';
 import '../theme/app_style.dart';
 
-class PokemonType extends StatelessWidget {
-  final String type;
-  const PokemonType({
+class PokemonAbility extends StatelessWidget {
+  final String ability;
+  final Color bgColor;
+  const PokemonAbility({
     Key? key,
-    required this.type,
+    required this.ability,
+    required this.bgColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // swap colors based on type
     return Container(
-      decoration: AppDecoration.outlineBluegray200.copyWith(
+      padding: getPadding(
+        top: 5,
+        right: 5,
+        left: 5,
+        bottom: 5,
+      ),
+      margin: getMargin(top: 5, bottom: 5),
+      // rounded
+      decoration: BoxDecoration(
+        color: bgColor,
         borderRadius: BorderRadiusStyle.roundedBorder8,
       ),
       child: Text(
-        type,
+        ability,
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.left,
-        style: AppStyle.txtPoppinsRegular8Bluegray200.copyWith(
+        style: AppStyle.txtPoppinsBold12.copyWith(
           height: 1.50,
         ),
       ),
