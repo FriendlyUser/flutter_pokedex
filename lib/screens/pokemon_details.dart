@@ -258,6 +258,10 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                         ],
                                       ),
                                       buildChart(),
+                                      SizedBox(
+                                        height: getVerticalSize(64),
+                                      ),
+                                      
                                       // base stats, draw one chart with fl chart grab data dynamically
                                     ],
                                   ),
