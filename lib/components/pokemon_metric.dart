@@ -20,7 +20,7 @@ class PokemonMetric extends StatelessWidget {
     // PokemonMetric
     // first letter capitalized
     var pokemonMetricLabel = label ?? " ";
-    var pokemonMetricText = text ?? "SAMPLE TEXT";
+    var pokemonMetricText = text ?? " ";
     var pokemonMetricIcon = icon ?? " ";
 
     if (pokemonMetricLabel != " ") {

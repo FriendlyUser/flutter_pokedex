@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/pokemon/:id',
-            builder: (context, state) => PokemonDetails(
+            builder: (context, state) => PokemonDetailsScreen(
               pokemonId: int.parse(state.params['id']!),
             ),
           ),
