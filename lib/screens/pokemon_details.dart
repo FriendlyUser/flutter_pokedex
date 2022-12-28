@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/core/api/poke_api.dart';
 
+import '../components/pokemon_description.dart';
 import '../components/pokemon_metric.dart';
 import '../components/pokemon_stats.dart';
 import '../components/pokemon_type.dart';
@@ -28,8 +29,25 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
   late Pokemon pokemon;
   bool isLoading = false;
   bool isLoadingDetails = false;
+  bool isLoadingSpecies = false;
   PokemonDetails? pokemonDetails;
+  PokemonSpecies? pokemonSpecies;
 
+  void getSpecies(String url) {
+    isLoadingSpecies = true;
+    fetchPokemonSpecies(url).then((resultat) {
+      // pokemonDetails = resultat;
+      pokemonSpecies = resultat;
+      setState(() {
+        isLoadingSpecies = false;
+      });
+    }).catchError((error) {
+      Logger.log(error);
+      setState(() {
+        isLoadingSpecies = false;
+      });
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -55,6 +73,11 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       setState(() {
         isLoadingDetails = false;
       });
+      // get species url
+      var speciesUrl = pokemonDetails?.species?.url;
+      if (speciesUrl != null) {
+        getSpecies(speciesUrl);
+      }
     }).catchError((error) {
       Logger.log(error);
       setState(() {
@@ -83,6 +106,22 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       );
     }).toList();
     return Column(children: widgets);
+  }
+
+  Widget buildDescription() {
+    var bgColor = getBgColor();
+     if (isLoadingSpecies == true) {
+      return CircularProgressIndicator(color: bgColor);
+    }
+    var description = pokemonSpecies?.flavorTextEntries?[0].flavorText;
+    // return description
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 100,
+      child: PokemonDescription(
+        description: description ?? "",
+      )
+    );
   }
 
   Widget buildMetrics() {
@@ -130,18 +169,15 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
         e.baseStat!,
       );
     }).toList();
-    // var chartData = [
-    //   charts.Series<PokemonBaseStat, String>(
-    //     id: 'Sales',
-    //     domainFn: (PokemonBaseStat stats, _) => stats.label,
-    //     measureFn: (PokemonBaseStat stats, _) => stats.baseStat,
-    //     data: seriesList,
-    //   )
-    // ];
+
     Logger.log("do something here");
     // make series from stats
-    return BarChartWidget(points: seriesList, bgColor: bgColor);
-    // return HorizontalBarChart(chartData, animate: true);
+    return Column(
+      children: [
+        const Text("Base Stats"),
+        BarChartWidget(points: seriesList, bgColor: bgColor)
+      ]
+    );
   }
 
   Color getBgColor() {
@@ -184,9 +220,9 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                               ),
                               padding: getPadding(
                                 left: 20,
-                                top: 44,
+                                top: 20,
                                 right: 20,
-                                bottom: 44,
+                                bottom: 2,
                               ),
                               decoration: AppDecoration.fillWhiteA700.copyWith(
                                 borderRadius: BorderRadiusStyle.roundedBorder8,
@@ -196,9 +232,9 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                       MediaQuery.of(context).size.height * 1,
                                   width: MediaQuery.of(context).size.width * 1,
                                   padding: getPadding(
-                                    left: 20,
+                                    left: 10,
                                     top: 8,
-                                    right: 20,
+                                    right: 10,
                                     bottom: 8,
                                   ),
                                   // decoration:
@@ -207,6 +243,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                   // ),
                                   child: ListView(
                                     children: [
+                                      buildDescription(),
                                       PokemonTypes(pokemon: pokemon),
                                       // add padding between types and metrics
                                       SizedBox(
@@ -223,7 +260,8 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                       buildChart(),
                                       // base stats, draw one chart with fl chart grab data dynamically
                                     ],
-                                  ))))
+                                  ),
+                                  )))
                     ]))));
   }
 

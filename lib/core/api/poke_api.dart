@@ -19,10 +19,11 @@ Future<PokemonDetails> fetchPokemonDetails(String pokemonName) async  {
     throw Exception('Failed to the pokemon');
   }
 }
+
 // load pokemon species
-Future<PokemonSpecies> fetchPokemonSpecies(int pokemonId) async {
+Future<PokemonSpecies> fetchPokemonSpecies(String url) async {
   final response = await http
-      .get(Uri.parse('https://pokeapi.co/api/v2/pokemon-species/$pokemonId'));
+      .get(Uri.parse(url));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,

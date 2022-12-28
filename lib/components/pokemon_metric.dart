@@ -1,8 +1,6 @@
 // simple pokemon widget that takes an pokemon as an text input, icon input and label
 import 'package:flutter/material.dart';
-import '../core/utils/color_constant.dart';
 import '../core/utils/size_utils.dart';
-import '../theme/app_decoration.dart';
 import 'custom_image_view.dart';
 
 class PokemonMetric extends StatelessWidget {
