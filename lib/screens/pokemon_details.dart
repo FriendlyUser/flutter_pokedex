@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:pokedex/core/api/poke_api.dart';
 
-import '../components/custom_image_view.dart';
 import '../components/pokemon_metric.dart';
+import '../components/pokemon_stats.dart';
 import '../components/pokemon_type.dart';
 import '../components/pokemon_types.dart';
 import '../components/pokemon_header.dart';
@@ -12,9 +13,7 @@ import '../core/utils/logger.dart';
 import '../core/utils/poke_classes.dart';
 import '../core/utils/type_to_color.dart';
 import '../theme/app_decoration.dart';
-import '../theme/app_style.dart';
 import '../theme/size_utils.dart';
-import 'package:flutter/material.dart';
 
 class PokemonDetailsScreen extends StatefulWidget {
   int pokemonId;
@@ -114,6 +113,37 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     );
   }
 
+  Widget buildChart() {
+    var bgColor = getBgColor();
+    if (isLoadingDetails == true) {
+      return CircularProgressIndicator(color: bgColor);
+    }
+    var stats = pokemonDetails?.stats;
+    // get all stats
+    if (stats != null && stats.isEmpty) {
+      return Container();
+    }
+    // map over stats and make seriesList
+    var seriesList = stats!.map((e) {
+      return PokemonBaseStat(
+        e.stat!.name!,
+        e.baseStat!,
+      );
+    }).toList();
+    // var chartData = [
+    //   charts.Series<PokemonBaseStat, String>(
+    //     id: 'Sales',
+    //     domainFn: (PokemonBaseStat stats, _) => stats.label,
+    //     measureFn: (PokemonBaseStat stats, _) => stats.baseStat,
+    //     data: seriesList,
+    //   )
+    // ];
+    Logger.log("do something here");
+    // make series from stats
+    return BarChartWidget(points: seriesList, bgColor: bgColor);
+    // return HorizontalBarChart(chartData, animate: true);
+  }
+
   Color getBgColor() {
     var bgColor = ColorConstant.whiteA700;
     // make sure pokemon type is set
@@ -147,51 +177,53 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                       PokemonHeader(
                         pokemon: pokemon,
                       ),
-                      Container(
-                          margin: getMargin(
-                            bottom: 4,
-                          ),
-                          padding: getPadding(
-                            left: 20,
-                            top: 44,
-                            right: 20,
-                            bottom: 44,
-                          ),
-                          decoration: AppDecoration.fillWhiteA700.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder8,
-                          ),
+                      Flexible(
                           child: Container(
-                              height: MediaQuery.of(context).size.height * 1,
-                              width: MediaQuery.of(context).size.width * 1,
+                              margin: getMargin(
+                                bottom: 4,
+                              ),
                               padding: getPadding(
                                 left: 20,
-                                top: 8,
+                                top: 44,
                                 right: 20,
-                                bottom: 8,
+                                bottom: 44,
                               ),
-                              // decoration:
-                              //     AppDecoration.fillWhiteA70063.copyWith(
-                              //   borderRadius: BorderRadiusStyle.circleBorder104,
-                              // ),
-                              child: ListView(
-                                children: [
-                                  PokemonTypes(pokemon: pokemon),
-                                  // add padding between types and metrics
-                                  SizedBox(
-                                    height: getVerticalSize(16),
+                              decoration: AppDecoration.fillWhiteA700.copyWith(
+                                borderRadius: BorderRadiusStyle.roundedBorder8,
+                              ),
+                              child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 1,
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  padding: getPadding(
+                                    left: 20,
+                                    top: 8,
+                                    right: 20,
+                                    bottom: 8,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                  // decoration:
+                                  //     AppDecoration.fillWhiteA70063.copyWith(
+                                  //   borderRadius: BorderRadiusStyle.circleBorder104,
+                                  // ),
+                                  child: ListView(
                                     children: [
-                                      buildMetrics(),
-                                      buildAbilities()
+                                      PokemonTypes(pokemon: pokemon),
+                                      // add padding between types and metrics
+                                      SizedBox(
+                                        height: getVerticalSize(16),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          buildMetrics(),
+                                          buildAbilities()
+                                        ],
+                                      ),
+                                      buildChart(),
+                                      // base stats, draw one chart with fl chart grab data dynamically
                                     ],
-                                  )
-
-                                  // base stats, draw one chart with fl chart grab data dynamically
-                                ],
-                              )))
+                                  ))))
                     ]))));
   }
 

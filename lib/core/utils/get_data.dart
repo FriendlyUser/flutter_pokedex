@@ -113,3 +113,10 @@ Future<Pokemon> getPokemonFromId(int id) async {
   final pokemon = pokemonList.where((pokemon) => pokemon.id == id).toList()[0];
   return pokemon;
 }
+
+class PokemonBaseStat {
+  final String label;
+  final int baseStat;
+
+  PokemonBaseStat(this.label, this.baseStat);
+}
