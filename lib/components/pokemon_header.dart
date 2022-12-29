@@ -1,5 +1,6 @@
 // simple widget that takes an pokemon as an input
 import 'package:flutter/material.dart';
+import 'package:pokedex/screens/pokemon_list_view.dart';
 import '../core/utils/color_constant.dart';
 import '../core/utils/get_data.dart';
 import '../core/utils/image_constant.dart';
@@ -63,22 +64,30 @@ class PokemonHeader extends StatelessWidget {
           alignment: Alignment.topLeft,
           margin: getMargin(left: 24, top: 143),
           onTap: () {
-            onTapImgArrowleft();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PokemonListView();
+                },
+              ),
+            );
           }),
-          CustomImageView(
-            svgPath: ImageConstant.imgArrowright,
-            height: getVerticalSize(16.00),
-            width: getHorizontalSize(8.00),
-            alignment: Alignment.bottomRight,
-            onTap: () {
-              onTapImgArrowright();
-            })
+          // CustomImageView(
+          //   svgPath: ImageConstant.imgArrowright,
+          //   height: getVerticalSize(16.00),
+          //   width: getHorizontalSize(8.00),
+          //   alignment: Alignment.bottomRight,
+          //   onTap: () {
+          //     onTapImgArrowright();
+          //   })
     ]);
   }
 
   @override
   onTapImgArrowleft() {
     // Get.toNamed(AppRoutes.pokemonScreen);
+    // back to pokemon screen with gorouter
+
   }
   @override
   onTapImgArrowright() {
