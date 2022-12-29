@@ -66,7 +66,7 @@ class PokemonHeader extends StatelessWidget {
           margin: getMargin(left: 24, top: 143),
           onTap: () {
             // bring back to /pokemon using go_router
-            GoRouter.of(context).go('/pokemon');
+            GoRouter.of(context).go('/');
           }),
           // CustomImageView(
           //   svgPath: ImageConstant.imgArrowright,
