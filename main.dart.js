@@ -83872,7 +83872,7 @@ return A.jw(B.bK,A.a([new A.eP(B.ei,k,k,new A.Iz(r,0,new A.cZ(q,B.r),B.bP,s,o,k)
 A.ae6.prototype={
 $0(){var s=this.a.ad(t.q0).x.d
 s===$&&A.b()
-s.sm(0,new A.fN("/pokemon",null))},
+s.sm(0,new A.fN("/",null))},
 $S:0}
 A.Bg.prototype={
 I(a){var s,r=null,q=this.c
