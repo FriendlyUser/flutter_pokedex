@@ -20,7 +20,10 @@ class PokemonCard extends StatelessWidget {
   @override
   List<Widget> labelsForTypes(Pokemon mon) {
     List<Widget> labels = [];
-    for (var type in mon?.pokemonV2Pokemontypes) {
+    if (mon?.pokemonV2Pokemontypes == null) {
+      return labels;
+    }
+    for (var type in mon.pokemonV2Pokemontypes!) {
       // map type to color
       var typeName = type?.pokemonV2Type?.name ?? "";
       var colors = getColorsFromType(typeName);
