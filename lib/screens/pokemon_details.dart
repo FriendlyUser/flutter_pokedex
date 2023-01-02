@@ -143,8 +143,8 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     if (isLoadingDetails == true || weight == null || height == null) {
       return CircularProgressIndicator(color: bgColor);
     }
-    String weightString = ""
-    String heightString = ""
+    String weightString = "";
+    String heightString = "";
     // hectograms to kg
     try {
       weightString = "${(weight * 0.1).toStringAsPrecision(1)} kg";
