@@ -190,16 +190,15 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     if (pokemonDetails == null) {
       return Container();
     }
-    var stats = pokemonDetails?.stats;
+    var stats = pokemonDetails.stats;
     // get all stats
     if (stats != null && stats.isEmpty) {
       return Container();
     }
     // map over stats and make seriesList
     var seriesList = stats.map((e) {
-      var name = e.stat!.name! ?? " ";
+      var name = e.stat!.name!;
       var baseStat = e!.baseStat;
-      baseStat ??= 0;
       return PokemonBaseStat(
         name,
         baseStat,
