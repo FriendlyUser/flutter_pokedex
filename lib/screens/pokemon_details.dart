@@ -196,7 +196,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       return Container();
     }
     // map over stats and make seriesList
-    var seriesList = stats?.map((e) {
+    var seriesList = stats.map((e) {
       var name = e.stat!.name! ?? " ";
       var baseStat = e!.baseStat;
       baseStat ??= 0;
@@ -233,7 +233,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       var typeName = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name!;
       var colors = getColorsFromType(typeName);
       // update br color
-      bgColor = colors![1]!.color;
+      bgColor = colors[1].color!;
     }
     return bgColor;
   }
