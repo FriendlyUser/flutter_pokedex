@@ -35,19 +35,22 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
 
   void getSpecies(String url) {
     isLoadingSpecies = true;
-    fetchPokemonSpecies(url).then((resultat) {
-      // pokemonDetails = resultat;
-      pokemonSpecies = resultat;
-      setState(() {
-        isLoadingSpecies = false;
-      });
-    }).catchError((error) {
+    try {
+      fetchPokemonSpecies(url).then((resultat) {
+        // pokemonDetails = resultat;
+        pokemonSpecies = resultat;
+        setState(() {
+          isLoadingSpecies = false;
+        });
+      })
+    } catchError((error) {
       Logger.log(error);
       setState(() {
         isLoadingSpecies = false;
       });
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -135,19 +138,26 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     if (isLoadingDetails == true || weight == null || height == null) {
       return CircularProgressIndicator(color: bgColor);
     }
+    String weightString = ""
+    String heightString = ""
     // hectograms to kg
-
+    try {
+      weightString = "${(weight * 0.1).toStringAsPrecision(1)} kg";
+      heightString = "${(height * 0.1).toStringAsPrecision(1)} m";
+    } catch (e) {
+      Logger.log(e);
+    }
     return Row(
       // space between metrics
       children: [
         PokemonMetric(
           text: "weight",
-          label: "${(weight * 0.1).toStringAsPrecision(1)} kg",
+          label: weightString,
           icon: ImageConstant.imgMusic,
         ),
         PokemonMetric(
           text: "height",
-          label: "${(height * 0.1).toStringAsPrecision(1)} m",
+          label: heightString,
           icon: ImageConstant.imgFrame,
         ),
       ],
@@ -172,7 +182,6 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       );
     }).toList();
 
-    Logger.log("do something here");
     // make series from stats
     return Column(
       children: [

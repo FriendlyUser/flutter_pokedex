@@ -13,6 +13,8 @@ class PokemonDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     var pokemonDescription = description ?? " ";
     // text 100% width, word wrap
+    // make sure pokemond
+    // error widget for this component
     return Row(
       // space evenly
       children: [

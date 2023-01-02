@@ -4,6 +4,24 @@ import 'package:pokedex/screens/pokemon_list_view.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
+
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    // If we're in debug mode, use the normal error widget which shows the error
+    // message:
+    if (kDebugMode) {
+      return ErrorWidget(details.exception);
+    }
+    // In release builds, show a yellow-on-blue message instead:
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        'Error!\n${details.exception}',
+        style: const TextStyle(color: Colors.yellow),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+      ),
+    );
+  };
   runApp(const MyApp());
 }
 
