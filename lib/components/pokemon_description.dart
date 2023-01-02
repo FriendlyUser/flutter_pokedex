@@ -11,7 +11,7 @@ class PokemonDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var pokemonDescription = description ?? " ";
+    var pokemonDescription = description;
     // text 100% width, word wrap
     // make sure pokemond
     // error widget for this component
