@@ -114,6 +114,8 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       return CircularProgressIndicator(color: bgColor);
     }
     var description = pokemonSpecies?.flavorTextEntries?[0].flavorText;
+    // safe render, remove special characters
+    description = description?.replaceAll("\f", "");
     // return description
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -237,10 +239,6 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                     right: 10,
                                     bottom: 8,
                                   ),
-                                  // decoration:
-                                  //     AppDecoration.fillWhiteA70063.copyWith(
-                                  //   borderRadius: BorderRadiusStyle.circleBorder104,
-                                  // ),
                                   child: ListView(
                                     children: [
                                       buildDescription(),
