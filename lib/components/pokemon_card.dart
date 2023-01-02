@@ -25,7 +25,7 @@ class PokemonCard extends StatelessWidget {
     }
     for (var type in mon.pokemonV2Pokemontypes!) {
       // map type to color
-      var typeName = type?.pokemonV2Type?.name ?? "";
+      var typeName = type.pokemonV2Type?.name ?? "";
       var colors = getColorsFromType(typeName);
       var mainColor = colors[0];
       var secondaryColor = colors[1];
