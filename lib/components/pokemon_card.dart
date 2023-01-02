@@ -55,7 +55,7 @@ class PokemonCard extends StatelessWidget {
       imgSize = 144;
     }
     // get pokemon type
-    String type = pokemon?.pokemonV2Pokemontypes?[0]?.pokemonV2Type?.name ?? "";
+    String type = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name ?? "";
     // need to center image and boost text size
     // and boost font size
     // image size
