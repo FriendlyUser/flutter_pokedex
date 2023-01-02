@@ -75,7 +75,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       });
     });
     // LOADING SECOND DATA
-    fetchPokemonDetails(widget.pokemonId.toString()).then((resultat) {
+    fetchPokemonDetails(widget?.pokemonId?.toString()).then((resultat) {
       // pokemonDetails = resultat;
       pokemonDetails = resultat;
       setState(() {
@@ -108,8 +108,10 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     }
     // map over abilities and make list of widgets
     var widgets = abilities.map((e) {
+      var ability = e?.ability?.name;
+      ability ??= " ";
       return PokemonAbility(
-        ability: e.ability!.name!,
+        ability: ability,
         bgColor: bgColor,
       );
     }).toList();
@@ -130,7 +132,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     if (pokemonSpecies?.flavorTextEntries?.isEmpty == true) {
       return Container();
     }
-    var description = pokemonSpecies?.flavorTextEntries?[0].flavorText;
+    var description = pokemonSpecies?.flavorTextEntries?[0]?.flavorText;
     // safe render, remove special characters
     description ??= " ";
     // return description
@@ -146,6 +148,9 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
   Widget buildMetrics() {
     // if isLoadingDetails is true, return loaded
     var bgColor = getBgColor();
+    if (pokemonDetails == null) {
+      return CircularProgressIndicator(color: bgColor);
+    }
     // parse metrics from pokeomnDetails
     var weight = pokemonDetails?.weight;
     var height = pokemonDetails?.height;
@@ -183,16 +188,23 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     if (isLoadingDetails == true) {
       return CircularProgressIndicator(color: bgColor);
     }
+    if (pokemonDetails == null) {
+      return Container();
+    }
     var stats = pokemonDetails?.stats;
     // get all stats
     if (stats != null && stats.isEmpty) {
       return Container();
     }
     // map over stats and make seriesList
-    var seriesList = stats!.map((e) {
+    var seriesList = stats?.map((e) {
+      var name = e?.stat?.name;
+      name ??= " ";
+      var baseStat = e?.baseStat;
+      baseStat ??= 0;
       return PokemonBaseStat(
-        e.stat!.name!,
-        e.baseStat!,
+        name,
+        baseStat,
       );
     }).toList();
 

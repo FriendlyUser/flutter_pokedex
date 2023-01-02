@@ -20,9 +20,9 @@ class PokemonCard extends StatelessWidget {
   @override
   List<Widget> labelsForTypes(Pokemon mon) {
     List<Widget> labels = [];
-    for (var type in mon.pokemonV2Pokemontypes!) {
+    for (var type in mon?.pokemonV2Pokemontypes) {
       // map type to color
-      var typeName = type.pokemonV2Type!.name ?? "";
+      var typeName = type?.pokemonV2Type?.name ?? "";
       var colors = getColorsFromType(typeName);
       var mainColor = colors[0];
       var secondaryColor = colors[1];
@@ -52,7 +52,7 @@ class PokemonCard extends StatelessWidget {
       imgSize = 144;
     }
     // get pokemon type
-    String type = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name ?? "";
+    String type = pokemon?.pokemonV2Pokemontypes?[0]?.pokemonV2Type?.name ?? "";
     // need to center image and boost text size
     // and boost font size
     // image size
