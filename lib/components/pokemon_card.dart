@@ -20,7 +20,7 @@ class PokemonCard extends StatelessWidget {
   @override
   List<Widget> labelsForTypes(Pokemon mon) {
     List<Widget> labels = [];
-    if (mon?.pokemonV2Pokemontypes == null) {
+    if (mon.pokemonV2Pokemontypes == null) {
       return labels;
     }
     for (var type in mon.pokemonV2Pokemontypes!) {
