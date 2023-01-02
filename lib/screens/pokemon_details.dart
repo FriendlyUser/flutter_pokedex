@@ -121,15 +121,24 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
      if (isLoadingSpecies == true) {
       return CircularProgressIndicator(color: bgColor);
     }
+    if (pokemonSpecies == null) {
+      return Container();
+    }
+    if (pokemonSpecies?.flavorTextEntries == null) {
+      return Container();
+    }
+    if (pokemonSpecies?.flavorTextEntries?.isEmpty == true) {
+      return Container();
+    }
     var description = pokemonSpecies?.flavorTextEntries?[0].flavorText;
     // safe render, remove special characters
-    description = description?.replaceAll("\f", "");
+    description ??= " ";
     // return description
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 100,
       child: PokemonDescription(
-        description: description ?? "",
+        description: description,
       )
     );
   }
@@ -198,9 +207,19 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
 
   Color getBgColor() {
     var bgColor = ColorConstant.whiteA700;
+    // make sure pokemon is not null
     // make sure pokemon type is set
-    if (isLoading == false &&
-        pokemon!.pokemonV2Pokemontypes![0].pokemonV2Type?.name != "") {
+    if (isLoading == false) {
+      // esnure pokemon is not null
+      if (pokemon == null) {
+        return bgColor;
+      }
+      if (pokemon.pokemonV2Pokemontypes == null) {
+        return bgColor;
+      }
+      if (pokemon.pokemonV2Pokemontypes!.isEmpty) {
+        return bgColor;
+      }
       var typeName = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name!;
       var colors = getColorsFromType(typeName);
       // update br color
