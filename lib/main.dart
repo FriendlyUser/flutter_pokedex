@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/screens/pokemon_details.dart';
 import 'package:pokedex/screens/pokemon_list_view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
 

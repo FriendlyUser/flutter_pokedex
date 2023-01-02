@@ -42,13 +42,18 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
         setState(() {
           isLoadingSpecies = false;
         });
-      })
-    } catchError((error) {
+      }).catchError((error) {
+        Logger.log(error);
+        setState(() {
+          isLoadingSpecies = false;
+        });
+      });
+    } catch (error) {
       Logger.log(error);
       setState(() {
         isLoadingSpecies = false;
       });
-    });
+    };
   }
 
   @override
