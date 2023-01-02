@@ -108,7 +108,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     }
     // map over abilities and make list of widgets
     var widgets = abilities.map((e) {
-      var ability = e.ability.name;
+      var ability = e.ability!.name!;
       ability ??= " ";
       return PokemonAbility(
         ability: ability,
@@ -198,7 +198,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     }
     // map over stats and make seriesList
     var seriesList = stats?.map((e) {
-      var name = e.stat.name;
+      var name = e.stat.name!;
       name ??= " ";
       var baseStat = e.baseStat;
       baseStat ??= 0;
@@ -235,7 +235,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       var typeName = pokemon.pokemonV2Pokemontypes![0].pokemonV2Type!.name!;
       var colors = getColorsFromType(typeName);
       // update br color
-      bgColor = colors[1]!.color!;
+      bgColor = colors[1].color;
     }
     return bgColor;
   }

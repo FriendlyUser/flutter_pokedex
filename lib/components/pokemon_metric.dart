@@ -17,9 +17,9 @@ class PokemonMetric extends StatelessWidget {
   Widget build(BuildContext context) {
     // PokemonMetric
     // first letter capitalized
-    var pokemonMetricLabel = label ?? " ";
-    var pokemonMetricText = text ?? " ";
-    var pokemonMetricIcon = icon ?? " ";
+    var pokemonMetricLabel = label;
+    var pokemonMetricText = text;
+    var pokemonMetricIcon = icon;
 
     if (pokemonMetricLabel != " ") {
       pokemonMetricLabel = capitalize(pokemonMetricLabel);
