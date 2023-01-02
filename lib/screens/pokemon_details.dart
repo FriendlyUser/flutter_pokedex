@@ -75,7 +75,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
       });
     });
     // LOADING SECOND DATA
-    fetchPokemonDetails(widget?.pokemonId?.toString()).then((resultat) {
+    fetchPokemonDetails(widget.pokemonId.toString()).then((resultat) {
       // pokemonDetails = resultat;
       pokemonDetails = resultat;
       setState(() {
@@ -108,7 +108,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     }
     // map over abilities and make list of widgets
     var widgets = abilities.map((e) {
-      var ability = e?.ability?.name;
+      var ability = e.ability.name;
       ability ??= " ";
       return PokemonAbility(
         ability: ability,
@@ -198,9 +198,9 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
     }
     // map over stats and make seriesList
     var seriesList = stats?.map((e) {
-      var name = e?.stat?.name;
+      var name = e.stat.name;
       name ??= " ";
-      var baseStat = e?.baseStat;
+      var baseStat = e.baseStat;
       baseStat ??= 0;
       return PokemonBaseStat(
         name,
