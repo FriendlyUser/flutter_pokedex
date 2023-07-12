@@ -20,7 +20,7 @@ jobs:
         with:
           flutter-version: '3.10.1'
       - run: flutter pub get
-      - run: flutter build aab --release
+      - run: flutter build appbundle --release
       # upload artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
