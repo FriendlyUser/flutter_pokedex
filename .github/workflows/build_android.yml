@@ -20,7 +20,20 @@ jobs:
         with:
           flutter-version: '3.10.1'
       - run: flutter pub get
+
+
+      - run: echo $FLUTTER_JKS | base64 --decode > android/app/flutter.jks
+        name: Decoding Trump Quotes File
+      - run: echo $KEY_PROPERTIES | base64 --decode > android/key.properties
+        name: Decoding Key Properties
+        shell: bash
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+
       - run: flutter build appbundle --release
+
+
+      - run: flutter build apk --release
       # upload artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
